@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PegaTrampo</string>
+    <string name="title_section1">Home</string>
+    <string name="title_section2">Mapa de trabalho</string>
+    <string name="title_section3">Lista de Trabalhos</string>
+    <string name="title_section4">Contato</string>
+    <string name="title_section5">FAQ</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Sair</string>
+    <string name="action_settings">Ferramentas</string>
+    <string name="acao_buscar">Buscar</string>
+    <string name="Fragment_12">Fragment_12</string>
+    <string name="Fragment_13">Fragment_13</string>
+
+    <!-- Tela de anunciar vaga -->
+    <string name="textTituloVaga">Título da vaga</string>
+    <string name="vFuncao">Função:</string>
+    <string name="vSalario">Salario:</string>
+    <string name="v_Cidade">Cidade:</string>
+    <string name="v_DescricaoVaga">Descrição da Vaga:</string>
+    <string name="v_BtnCadastrarVaga">Cadastrar vaga</string>
+    <string name="cidade_prompt">Selecione cidade:</string>
+
+    <string-array name="cidade_arrays">
+        <item>Brasília</item>
+        <item>Gama</item>
+        <item>Sobradinho</item>
+        <item>Santa Maria</item>
+        <item>Recanto das Emas</item>
+        <item>Taguatinga</item>
+        <item>Outros</item>
+    </string-array>
+
+    <string name="cargo_prompt">Selecione cargo:</string>
+
+    <string-array name="cargo_arrays">
+        <item>Administrador de Banco de Dados (DBA)</item>
+        <item>Arquiteto de Sistemas</item>
+        <item>Arquiteto Java</item>
+        <item>Analista Programador Oracle</item>
+        <item>Engenheiro de Software</item>
+        <item>Analista de Sistemas</item>
+        <item>Analista de Requisitos</item>
+        <item>Outros</item>
+    </string-array>
+    <string name="busque_vagas_de_emprego">Busque vagas de emprego</string>
+    <string name="Texto_apresentacao_home">Procure e encontre aqui no pegatrampos as melhores oportunidades de trabalho do mercado ...</string>
+
+
+</resources>

@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config_PegaTrampos {
+            keyAlias 'AndroidKey_PegaTrampos'
+            keyPassword 'nslmjl_2015*'
+            storeFile file('/home/98287028191/Documentos/Projetos ANROID/Chave_google_plus/android.jks')
+            storePassword 'nslmjl_2015*'
+        }
+    }
+    compileSdkVersion 21
+    buildToolsVersion "21.0.2"
+    defaultConfig {
+        applicationId "pegatrampo.webinfor.com.pegatrampo"
+        minSdkVersion 15
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config_PegaTrampos
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:21.0.2'
+
+}

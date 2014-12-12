@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Código para colocar imagem -->
+<!-- <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/nuvens"
+    android:tileMode="repeat" />
+-->
+
+<!-- Código para colocar uma cor de fundo -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+  <!--   <gradient
+        android:startColor="#24b2eb"
+        android:centerColor="#4ccbff"
+        android:endColor="#24b2eb"
+        android:angle="270"/>
+    <corners android:radius="5dp" /> -->
+    
+      <gradient
+        android:startColor="#B22222"
+        android:centerColor="#B22222"
+        android:endColor="#B22222"
+        android:angle="270"/>
+    
+</shape>
+
+<!-- http://www.androidhive.info/2011/10/android-login-and-registration-screen-design/ -->
