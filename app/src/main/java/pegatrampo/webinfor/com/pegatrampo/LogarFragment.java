@@ -37,7 +37,7 @@ public class LogarFragment extends Activity {
         return inflater.inflate(R.layout.fragment_main,container,false);
         // teste de commit github
         // Commit de testes sdsd dfasdfa
-        //d asdfasdfas dfsasdf asdfasdfs asdfasdfasd
+        //d asdfasdfas dfsasdf asdfasdfs asdfasdfasd dfsdfsd
     }
 
 /*dd
