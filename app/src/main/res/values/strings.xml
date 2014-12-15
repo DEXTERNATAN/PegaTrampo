@@ -46,8 +46,10 @@
         <item>Analista de Requisitos</item>
         <item>Outros</item>
     </string-array>
+
     <string name="busque_vagas_de_emprego">Busque vagas de emprego</string>
     <string name="Texto_apresentacao_home">Procure e encontre aqui no pegatrampos as melhores oportunidades de trabalho do mercado ...</string>
-
+    <string name="title_activity_google_play_services">GooglePlayServicesActivity</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

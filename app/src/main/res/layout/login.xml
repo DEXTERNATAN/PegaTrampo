@@ -108,10 +108,43 @@
                 android:src="@drawable/facebook"
                 android:layout_weight="@integer/abc_max_action_buttons"/>
 -->
-            <com.google.android.gms.common.SignInButton
+            <!--Versão 001-->
+            <!-- <com.google.android.gms.common.SignInButton
                 android:id="@+id/sign_in_button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content" />-->
+
+            <!-- Personalizando o botão de login-->
+            <!--<Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/common_signin_button_text_long" />-->
+
+            <!--Botão de login com Google plus (+)-->
+           <com.google.android.gms.common.SignInButton
+                android:id="@+id/btSignInDefault"
+                android:layout_width="166dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center"/>
+
+          <Button
+                android:id="@+id/btSignInCustom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Entrar G+" />
+
+            <!--Botão de login com Facebook-->
+            <!--<com.facebook.widget.LoginButton
+                android:id="@+id/authButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                />-->
+
 
 
 
