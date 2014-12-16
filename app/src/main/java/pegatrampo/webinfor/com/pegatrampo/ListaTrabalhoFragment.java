@@ -11,6 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import java.util.ArrayList;
 
 // LInks de referencia:
@@ -22,7 +28,7 @@ public class ListaTrabalhoFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_photos, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_lista_trabalhos, container, false);
 
         ArrayList<ListviewContactItem> listContact = GetlistContact();
         ListView lv = (ListView)rootView.findViewById(R.id.listview);
@@ -39,18 +45,18 @@ public class ListaTrabalhoFragment extends android.support.v4.app.Fragment {
 
         ListviewContactItem contact = new ListviewContactItem();
 
-        contact.SetName("Topher");
-        contact.SetPhone("01213113568");
+        contact.setName("Analista de Sistemas");
+        contact.setPhone("01213113568");
         contactlist.add(contact);
 
         contact = new ListviewContactItem();
-        contact.SetName("Jean");
-        contact.SetPhone("01213869102");
+        contact.setName("Analista de Redes");
+        contact.setPhone("01213869102");
         contactlist.add(contact);
 
         contact = new ListviewContactItem();
-        contact.SetName("Andrew");
-        contact.SetPhone("01213123985");
+        contact.setName("Analista de Testes");
+        contact.setPhone("01213123985");
         contactlist.add(contact);
 
         return contactlist;

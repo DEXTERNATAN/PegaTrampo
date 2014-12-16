@@ -51,5 +51,12 @@
     <string name="Texto_apresentacao_home">Procure e encontre aqui no pegatrampos as melhores oportunidades de trabalho do mercado ...</string>
     <string name="title_activity_google_play_services">GooglePlayServicesActivity</string>
     <string name="title_activity_maps">Map</string>
+    <string name="str_aim">Analista de Sistemas</string>
+    <string name="str_bebo">Analista de Redes</string>
+    <string name="str_youtube">Analista de Requisitos</string>
+    <string name="str_bebo_description">Procure e encontre aqui no pegatrampos as melhores oportunidades de trabalho do mercado ...</string>
+    <string name="str_aim_description">Procure e encontre aqui no pegatrampos as melhores oportunidades de trabalho do mercado ...</string>
+    <string name="str_youtube_description">Procure e encontre aqui no pegatrampos as melhores oportunidades de trabalho do mercado ...</string>
+    <string name="icon_content_description">icon_content_description</string>
 
 </resources>

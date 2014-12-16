@@ -1,4 +1,4 @@
-package pegatrampo.webinfor.com.pegatrampo;
+package pegatrampo.webinfor.com.mylibrary;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;

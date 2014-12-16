@@ -6,12 +6,15 @@ package pegatrampo.webinfor.com.pegatrampo;
 
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -19,12 +22,15 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.StreetViewPanorama;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
 
@@ -32,13 +38,20 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
     private GoogleMap googleMap;
     private Geocoder geocoder;
 
+    View rootView;
+    Address address;
+
+    double latitude;
+    double longitude;
+
+
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // inflat and return the layout
-        View v = inflater.inflate(R.layout.fragment_location_info, container,
+        View v = inflater.inflate(R.layout.fragment_mapa_trabalho, container,
                 false);
-        mMapView = (MapView) v.findViewById(R.id.mapView);
+        mMapView = (MapView) v.findViewById(R.id.mapview);
         mMapView.onCreate(savedInstanceState);
 
         mMapView.onResume();// needed to get the map to display immediately
@@ -51,8 +64,8 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
 
         googleMap = mMapView.getMap();
         // latitude and longitude
-        double latitude = -15.780148200000000000;
-        double longitude = -47.929169800000010000;
+        latitude = -15.780148200000000000;
+        longitude = -47.929169800000010000;
 
         // Vou passar o endereço e o metodo vai retornar a latitude e longitude do endereço para eu setar o marcador no mapa
         // Link de referencia:
@@ -70,6 +83,8 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
         }
         */
 
+        // Atualiza o marcador de acordo com o
+        mapCurrentAddress();
 
         // create marker(marcador)
         MarkerOptions marker = new MarkerOptions().position(
@@ -82,7 +97,7 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
         // adding marker
         googleMap.addMarker(marker);
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(new LatLng(-15.780148200000000000, -47.929169800000010000)).zoom(12).build();
+                .target(new LatLng(latitude, longitude)).zoom(12).build();
 
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         //googleMap.animateCamera(CameraUpdateFactory.zoomTo(17),200,null);
@@ -100,6 +115,42 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
         //return inflater.inflate(R.layout.fragment_mapa_trabalho, container, false);
 
     }
+
+
+    /*
+    * Método: Responsavel por buscar o endereço informado e atualizar o mapa com as novas latitudes e longitudes..
+    * Links de referencia:
+    *   http://dl.e-book-free.com/2013/07/android_cookbook.pdf
+    *   http://stackoverflow.com/questions/26010548/the-constructor-geocodermap-tracker-locale-is-undefined
+    *
+    */
+    protected void mapCurrentAddress() {
+        String addressString = "Qr 317 Conjunto C - Santa Maria, Brasília - DF";
+        //Geocoder g = new Geocoder(this);
+        Geocoder gc = new Geocoder(getActivity(), Locale.getDefault());
+
+        List<Address> addresses;
+        try {
+            addresses = gc.getFromLocationName(addressString, 1);
+            String add = "";
+            if (addresses.size() > 0) {
+
+                address = addresses.get(0);
+                for (int i=0; i<address.getMaxAddressLineIndex();i++) {
+                    add += address.getAddressLine(i) + "\n";
+
+                }
+                latitude = address.getLatitude();
+                longitude = address.getLongitude();
+                //Toast.makeText(getBaseContext(), add, Toast.LENGTH_SHORT).show();
+            } else {
+                //Toast.makeText(getBaseContext(),"We failed to locate this address.", Toast.LENGTH_SHORT).show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void onResume() {
