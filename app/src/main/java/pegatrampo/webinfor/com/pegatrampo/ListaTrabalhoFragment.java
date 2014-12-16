@@ -13,6 +13,10 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+// LInks de referencia:
+// http://stackoverflow.com/questions/22512833/create-listview-in-fragment-android
+// http://www.vogella.com/tutorials/AndroidListView/article.html
+
 public class ListaTrabalhoFragment extends android.support.v4.app.Fragment {
 
     @Override
@@ -21,7 +25,7 @@ public class ListaTrabalhoFragment extends android.support.v4.app.Fragment {
         View rootView = inflater.inflate(R.layout.fragment_photos, container, false);
 
         ArrayList<ListviewContactItem> listContact = GetlistContact();
-        ListView lv = (ListView)getActivity().findViewById(R.id.lv_contact);
+        ListView lv = (ListView)rootView.findViewById(R.id.listview);
         lv.setAdapter(new ListviewContactAdapter(getActivity(), listContact));
 
         return rootView;
