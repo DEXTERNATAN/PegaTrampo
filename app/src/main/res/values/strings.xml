@@ -5,7 +5,7 @@
     <string name="title_section1">Home</string>
     <string name="title_section2">Mapa de trabalho</string>
     <string name="title_section3">Lista de Trabalhos</string>
-    <string name="title_section4">Contato</string>
+    <string name="title_section4">Meus trabalhos</string>
     <string name="title_section5">FAQ</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -56,6 +56,7 @@
     <string name="str_youtube">Analista de Requisitos</string>
     <string name="str_bebo_description">Procure e encontre aqui no pegatrampos as melhores oportunidades de trabalho do mercado ...</string>
     <string name="str_aim_description">Procure e encontre aqui no pegatrampos as melhores oportunidades de trabalho do mercado ...</string>
+    <string name="str_txt_search">Procure e encontre aqui no pegatrampos as melhores oportunidades de trabalho do mercado ...</string>
     <string name="str_youtube_description">Procure e encontre aqui no pegatrampos as melhores oportunidades de trabalho do mercado ...</string>
     <string name="icon_content_description">icon_content_description</string>
 

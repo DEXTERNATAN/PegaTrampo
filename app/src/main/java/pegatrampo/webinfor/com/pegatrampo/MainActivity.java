@@ -76,21 +76,22 @@ public class MainActivity extends ActionBarActivity
 
             case 2:
                 // Tela de lista de trabalhos
-                fragment = new ListViewDemoFragment();
+                fragment = new ListaTrabalhoFragment();
                 Log.i(CATEGORIA, "Entrando na tela de listar trabalhos");
                 break;
 
             case 3:
                 // Tela de contato
-                fragment = new AnunciarVagaFragment();
+                fragment = new ListViewDemoFragment();
                 Log.i(CATEGORIA, "Entrando na tela de contatos");
                 break;
 
-            /*case 4:
-                // Tela de FAQ
-                fragment = new AnunciarVagaFragment();
-                Log.i(CATEGORIA, "Entrando na tela de perguntas Frequentes ou FAQs.");
-                break;*/
+            case 4:
+                // Tela de meus trabalhos
+                fragment = new ListViewDemoFragment();
+                //fragment = new AnunciarVagaFragment();
+                Log.i(CATEGORIA, "Entrando na tela de meus trabalhos favoritos.");
+                break;
 
             /*case 7:
                 // Tela de FAQ

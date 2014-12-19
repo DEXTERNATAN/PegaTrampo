@@ -4,10 +4,18 @@
     android:layout_height="match_parent"
     android:background="@drawable/ic_background_blue">
 
+    <EditText
+        android:id="@+id/txvsearch"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:hint="Informe a vaga que deseja procurar"
+        android:background="#fffff8f8"
+        android:singleLine="true"/>
 
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/listview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
 
 </LinearLayout>
