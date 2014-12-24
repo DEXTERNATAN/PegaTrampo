@@ -55,7 +55,7 @@ public class ListaTrabalhoFragment extends android.support.v4.app.Fragment {
 
                 ListviewContactAdapter adapter = new ListviewContactAdapter(getActivity(), listContact);
                 Log.i("Valor", "Cheguei aqui");
-                adapter.getFilter().filter(s);
+                //adapter.getFilter().filter(s);
                 Log.i("Valor", String.valueOf(s));
                 adapter.notifyDataSetChanged();
 
