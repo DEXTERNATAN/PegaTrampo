@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <!-- <item name="lv_contact_item_name" type="id">Nome do contato</item>
+    <item name="lv_contact_item_phone" type="id">Telefone do contato</item>-->
+    <item name="lv_contact" type="id">Lista de contatos</item>
+</resources>

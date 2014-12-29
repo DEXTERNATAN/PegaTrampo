@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="10px"
+        android:layout_marginRight="10px"
+        android:layout_marginTop="10px"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_assignment_white_18dp"
+        android:layout_weight="0.12">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/txtcargotrampo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cargo"
+        android:textSize="30sp"
+        android:textColor="#ffffff"
+        android:layout_gravity="center_horizontal">
+    </TextView>
+
+    <!--<TextView
+        android:id="@+id/txtcidadetrampo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome do Trampo"
+        android:textSize="20sp"
+        android:textColor="#ffffff"
+        android:layout_gravity="center_horizontal">
+    </TextView>-->
+
+</LinearLayout>
