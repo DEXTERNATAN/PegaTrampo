@@ -49,10 +49,10 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // inflat and return the layout
-        View v = inflater.inflate(R.layout.fragment_mapa_trabalho, container,
-                false);
+        View v = inflater.inflate(R.layout.fragment_mapa_trabalho, container,false);
         mMapView = (MapView) v.findViewById(R.id.mapview);
         mMapView.onCreate(savedInstanceState);
+        //
 
         mMapView.onResume();// needed to get the map to display immediately
 
@@ -83,7 +83,7 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
         }
         */
 
-        // Atualiza o marcador de acordo com o
+        // Atualiza o marcador de acordo com o endereço informado.
         mapCurrentAddress();
 
         // create marker(marcador)
@@ -132,14 +132,14 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
         List<Address> addresses;
         try {
             addresses = gc.getFromLocationName(addressString, 1);
-            String add = "";
+            //String add = "";
             if (addresses.size() > 0) {
 
                 address = addresses.get(0);
-                for (int i=0; i<address.getMaxAddressLineIndex();i++) {
+                /*for (int i=0; i<address.getMaxAddressLineIndex();i++) {
                     add += address.getAddressLine(i) + "\n";
 
-                }
+                }*/
                 latitude = address.getLatitude();
                 longitude = address.getLongitude();
                 //Toast.makeText(getBaseContext(), add, Toast.LENGTH_SHORT).show();
