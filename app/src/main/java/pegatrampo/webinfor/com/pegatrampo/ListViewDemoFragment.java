@@ -45,6 +45,7 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
 
         // initialize and set the list adapter
         setListAdapter(new ListViewDemoAdapter(getActivity(), mItems));
+        // teste para subir arquivo
     }
 
     @Override
