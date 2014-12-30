@@ -56,18 +56,6 @@ public class MainActivity extends ActionBarActivity
                 Log.i(CATEGORIA, "Entrando na tela inicial do aplicativo");
                 break;
 
-            /*case 1:
-                // Tela de Login
-                fragment = new ClAcessoLoginFragment();
-                Log.i(CATEGORIA, "Entrando na tela Login");
-                break;*/
-
-            /*case 1:
-                // Tela de criar conta
-                fragment = new CiarContaFragment();
-                Log.i(CATEGORIA, "Entrando na Criar conta para o usuário");
-                break;*/
-
             case 1:
                 // Tela de mapa do trabalho
                 fragment = new MapaTrabalhoFragment();
