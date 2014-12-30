@@ -2,6 +2,7 @@ package pegatrampo.webinfor.com.pegatrampo;
 
 import android.app.ListActivity;
 import android.app.ListFragment;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
@@ -57,14 +58,22 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        // retrieve theListView item
+
+        // recuperar o item do listView
         ListViewItem item = mItems.get(position);
 
         // Quando clicar no item levar o cara para outra tela com a descrição e o nome da vaga
 
+            // Iniciando um intent para redirecionar para a outra activity
+            Intent TelaDetalheVaga = new Intent(getActivity().getApplicationContext(), MeusTrabalhos.class);
 
+            // Passando parametros para a activity que vai ser iniciada
+            //intent.putExtra("Item", (android.os.Parcelable) item);
 
-        // do something
+            // Iniciando a activity e redirecionando para a tela de detalhamento da activity
+            startActivity(TelaDetalheVaga);
+
+        // Mostra na tela qual foi o valor do item clicado
         Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
     }
 }

@@ -88,8 +88,8 @@ public class MainActivity extends ActionBarActivity
 
             case 4:
                 // Tela de meus trabalhos
-                fragment = new MeusTrabalhos();
-                //fragment = new AnunciarVagaFragment();
+                //fragment = new MeusTrabalhos();
+                fragment = new AnunciarVagaFragment();
                 Log.i(CATEGORIA, "Entrando na tela de meus trabalhos favoritos.");
                 break;
 
@@ -205,6 +205,26 @@ public class MainActivity extends ActionBarActivity
             ((MainActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
+
+
+
+
     }
 
+
+ /*   @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Logs 'install' and 'app activate' App Events.
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Logs 'app deactivate' App Event.
+        AppEventsLogger.deactivateApp(this);
+    }*/
 }

@@ -2,6 +2,11 @@
 <resources>
 
     <string name="app_name">PegaTrampo</string>
+
+    <!--Facebook-->
+    <string name="facebook_app_id">1375634119406001</string>
+
+
     <string name="title_section1">Home</string>
     <string name="title_section2">Mapa de trabalho</string>
     <string name="title_section3">Lista de Trabalhos</string>
@@ -59,5 +64,15 @@
     <string name="str_txt_search">Procure e encontre aqui no pegatrampos as melhores oportunidades de trabalho do mercado ...</string>
     <string name="str_youtube_description">Procure e encontre aqui no pegatrampos as melhores oportunidades de trabalho do mercado ...</string>
     <string name="icon_content_description">icon_content_description</string>
+    <string name="str_desc_vaga">Responder direto pelo ambiente de infraestrutura. Resolver questões complexas referentes aos recursos de infraestrutura. Atuar com ambiente Windows e Redes, em Data Center de alta disponibilidade. Contribuir para o desenvolvimento e orientação de profissionais menos experientes da equipe de infraestrutura na realização de suas atividades.
+        Experiência de administração em Ambientes Windows, AD, DHCP, DNS, WSUS, Exchange, Lync Server.
+        Ensino Superior completo em áreas de TI.
+        Desejável conhecimento em System Center Configuration Manager (SCCM). Necessário conhecimentos em Redes TCP/IP, VLAN / Roteadores e Switches, Access Point. Desejável conhecimento em Proxy. Certificação CCNA e MCSA ou MCSE.
+
+        Fonte: Analista de Redes - Vagas de emprego | Catho </string>
+
+
+
+
 
 </resources>
