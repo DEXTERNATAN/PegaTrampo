@@ -76,14 +76,22 @@
                 android:layout_gravity="center"
                 android:textColor="#ffffff"/>
 
-            <TextView
+            <!--<TextView
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
                 android:text="Esqueci a Senha"
                 android:gravity="center|center_vertical"
                 android:layout_marginTop="10dp"
                 android:textColor="#ffffff"
-                android:id="@+id/TxvEsqSenha" />
+                android:id="@+id/TxvEsqSenha" />-->
+
+            <com.facebook.widget.LoginButton
+                android:id="@+id/authButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45dp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
 
@@ -92,7 +100,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="500dp"
-            android:gravity="center_vertical|center"
+            android:gravity="center"
             android:layout_marginLeft="15dp">
 
            <!-- <ImageView
@@ -127,21 +135,13 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content" />-->
 
-            <com.google.android.gms.common.SignInButton
+            <!--<com.google.android.gms.common.SignInButton
                 android:id="@+id/btSignInDefault"
                 android:layout_width="166dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|center"/>
+                android:layout_gravity="center_vertical|center"/>-->
 
-            <com.facebook.widget.LoginButton
-                android:id="@+id/authButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                />
-
-           <!-- <com.facebook.widget.LoginButton
+            <!-- <com.facebook.widget.LoginButton
                 android:id="@+id/authButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

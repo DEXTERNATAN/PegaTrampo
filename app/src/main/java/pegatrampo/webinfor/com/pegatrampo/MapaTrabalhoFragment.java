@@ -4,10 +4,12 @@ package pegatrampo.webinfor.com.pegatrampo;
  * Created by 98287028191 on 10/12/14.
  */
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.net.http.AndroidHttpClient;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -141,6 +143,12 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
         googleMap.getUiSettings().setCompassEnabled(true);
         googleMap.setMyLocationEnabled(true);
 
+
+        // Metodo para startar a activiti levando a rota do google - Leva o cara para traçar a rota na API do google
+        // Fonte: http://brasildroid.com.br/desenvolvimento-de-aplicacoes-jogos/11062-chamar-intent-google-navigation.html
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:ll=-15.780148200000000000,-47.929169800000010000&mode=w")));
+
+        // Método para traçar a rota no mapa usando pollyLines
         getRoute(new LatLng(-15.780148200000000000, -47.929169800000010000), new LatLng(latitude, longitude));
 
         // Perform any camera updates here
@@ -156,7 +164,9 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
 
                 String url = "http://maps.googleapis.com/maps/api/directions/json?origin="
                         + origin.latitude + "," + origin.longitude + "&destination="
-                        + destination.latitude + "," + destination.longitude + "&sensor=false";
+                        + destination.latitude + "," + destination.longitude + "&sensor=false&alternatives=true";
+
+                Log.i("ROTA","VALOR DA STRING" + url);
 
                 HttpResponse response;
                 HttpGet request;
