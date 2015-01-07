@@ -1,16 +1,28 @@
 package pegatrampo.webinfor.com.pegatrampo;
 
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ListFragment;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import android.app.ProgressDialog;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by 98287028191 on 16/12/14.
@@ -19,7 +31,12 @@ import java.util.List;
 // Link de referencia:
 //  --> http://www.perfectapk.com/sqliteopenhelper-example.html
 public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
+
+    private static final String TAG = "PEGATRAMPO";
+    // Declaração de variaveis
     private List<ListViewItem> mItems;
+    Dialog dialog;
+    ListViewDemoAdapter adpt;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,9 +61,16 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
         mItems.add(new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), getString(R.string.str_aim),   getString(R.string.str_aim_description)));
         mItems.add(new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), getString(R.string.str_aim),  getString(R.string.str_aim_description)));
 
+        // Iniciando a variavel do adapter customizado
+        adpt = new ListViewDemoAdapter(getActivity(), mItems);
+
         // initialize and set the list adapter
-        setListAdapter(new ListViewDemoAdapter(getActivity(), mItems));
+        setListAdapter(adpt);
+
         // teste para subir arquivo
+
+        // Exec async load task
+        (new AsyncListViewLoader()).execute("http://mrestituicao.com.br/select.php");
     }
 
     @Override
@@ -75,5 +99,73 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
 
         // Mostra na tela qual foi o valor do item clicado
         Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
+    }
+
+
+    private class AsyncListViewLoader extends AsyncTask<String, Void, List<ListViewItem>> {
+
+        private final ProgressDialog dialog = new ProgressDialog(ListViewDemoFragment.this.getActivity());
+
+        @Override
+        protected void onPostExecute(List<ListViewItem> result) {
+            super.onPostExecute(result);
+            
+            dialog.dismiss();
+            adpt.setItemList(result);
+            adpt.notifyDataSetChanged();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog.setMessage("Downloading contacts...");
+            dialog.show();
+        }
+
+
+        @Override
+        protected List<ListViewItem> doInBackground(String... params) {
+            List<ListViewItem> result = new ArrayList<ListViewItem>();
+
+            try {
+                URL u = new URL(params[0]);
+                HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+                conn.setRequestMethod("GET");
+                conn.connect();
+                InputStream is = conn.getInputStream();
+// Read the stream
+                byte[] b = new byte[1024];
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                while ( is.read(b) != -1)
+                    baos.write(b);
+                String JSONResp = new String(baos.toByteArray());
+                JSONArray arr = new JSONArray(JSONResp);
+                for (int i=0; i < arr.length(); i++) {
+                    result.add(convertContact(arr.getJSONObject(i)));
+                    Log.i(TAG, String.valueOf(arr.getJSONObject(i)));
+                }
+                return result;
+            }
+            catch(Throwable t) {
+                t.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private ListViewItem convertContact(JSONObject obj) {
+        String name = null;
+        String description = null;
+        try {
+            name = obj.getString("title");
+            description = obj.getString("description");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //getString("title");
+       /* String surname = obj.getString("surname");
+        String email = obj.getString("email");
+        String phoneNum = obj.getString("phoneNum");*/
+        return new ListViewItem(null, name, description);
     }
 }

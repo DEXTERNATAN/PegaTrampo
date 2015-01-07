@@ -41,15 +41,16 @@ public class PrincipalActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.listview_item);
+        setContentView(R.layout.login);
+        //setContentView(R.layout.listview_item);
 
 
         // NOVA IMPLEMENTAÇÃO USANDO ASSYNC TASK DE CONEXAO COM SERVIDOR WEB PHP E LISTAGEM DE UM XML
-        new task().execute();
+        //new task().execute();
 
          // IMPLEMENTAÇÃO ANTERIOR DE LOGIN
         Button btnGooglePlus = (Button) findViewById(R.id.button3);
-        /*
+
         btnGooglePlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +60,7 @@ public class PrincipalActivity extends Activity{
                 PrincipalActivity.this.finish();
 
             }
-        });*/
+        });
 
     }
 

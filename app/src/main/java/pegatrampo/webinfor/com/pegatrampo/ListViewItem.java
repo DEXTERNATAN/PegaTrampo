@@ -20,5 +20,4 @@ public class ListViewItem {
         this.description = description;
     }
 
-
 }

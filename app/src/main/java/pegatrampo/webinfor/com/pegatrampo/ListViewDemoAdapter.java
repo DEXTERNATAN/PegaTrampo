@@ -15,6 +15,10 @@ import java.util.List;
  */
 public class ListViewDemoAdapter extends ArrayAdapter<ListViewItem> {
 
+    private List<ListViewItem> items;
+    private Context context;
+
+
     public ListViewDemoAdapter(Context context, List<ListViewItem> items) {
         super(context, R.layout.listview_item, items);
     }
@@ -48,6 +52,13 @@ public class ListViewDemoAdapter extends ArrayAdapter<ListViewItem> {
         viewHolder.tvDescription.setText(item.description);
 
         return convertView;
+    }
+
+    public List<ListViewItem> getItemList() {
+        return items;
+    }
+    public void setItemList(List<ListViewItem> itemList) {
+        this.items = itemList;
     }
 
     /**
