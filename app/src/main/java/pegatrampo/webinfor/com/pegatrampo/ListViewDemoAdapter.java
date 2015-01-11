@@ -1,6 +1,7 @@
 package pegatrampo.webinfor.com.pegatrampo;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 public class ListViewDemoAdapter extends ArrayAdapter<ListViewItem> {
 
+    private static final String TAG = "PEGATRAMPO";
     private List<ListViewItem> items;
     private Context context;
 
@@ -57,8 +59,10 @@ public class ListViewDemoAdapter extends ArrayAdapter<ListViewItem> {
     public List<ListViewItem> getItemList() {
         return items;
     }
+
     public void setItemList(List<ListViewItem> itemList) {
         this.items = itemList;
+        Log.i(TAG,"Massa: " + itemList);
     }
 
     /**
