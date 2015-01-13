@@ -34,7 +34,9 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
 
     private static final String TAG = "PEGATRAMPO";
     // Declaração de variaveis
+    private ListView listView;
     private List<ListViewItem> mItems;
+    private Resources resources;
     Dialog dialog;
     ListViewDemoAdapter adpt;
 
@@ -44,12 +46,12 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
 
         // initialize the items list
         mItems = new ArrayList<ListViewItem>();
-        Resources resources = getResources();
+        resources = getResources();
 
 
         //mItems.add(new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), getString(R.string.str_aim),getString(R.string.str_txt_search), getString(R.string.str_aim_description)));
         //mItems.add(new ListViewItem(resources.getDrawable(R.drawable.jobs_2), getString(R.string.str_bebo), getString(R.string.str_txt_search), getString(R.string.str_bebo_description)));
-        mItems.add(new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), getString(R.string.str_youtube),  getString(R.string.str_youtube_description)));
+        /*mItems.add(new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), getString(R.string.str_youtube),  getString(R.string.str_youtube_description)));
         mItems.add(new ListViewItem(resources.getDrawable(R.drawable.jobs_2), getString(R.string.str_bebo),  getString(R.string.str_bebo_description)));
         mItems.add(new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), getString(R.string.str_youtube),  getString(R.string.str_youtube_description)));
         mItems.add(new ListViewItem(resources.getDrawable(R.drawable.jobs_2), getString(R.string.str_bebo), getString(R.string.str_bebo_description)));
@@ -60,13 +62,13 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
         mItems.add(new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), getString(R.string.str_youtube),  getString(R.string.str_youtube_description)));
         mItems.add(new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), getString(R.string.str_aim),   getString(R.string.str_aim_description)));
         mItems.add(new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), getString(R.string.str_aim),  getString(R.string.str_aim_description)));
-
-        // Iniciando a variavel do adapter customizado
+        */
+        /*// Iniciando a variavel do adapter customizado
         adpt = new ListViewDemoAdapter(getActivity(), mItems);
 
         // initialize and set the list adapter
         setListAdapter(adpt);
-
+*/
         // teste para subir arquivo
 
         // Exec async load task
@@ -88,14 +90,14 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
 
         // Quando clicar no item levar o cara para outra tela com a descrição e o nome da vaga
 
-            // Iniciando um intent para redirecionar para a outra activity
-            Intent TelaDetalheVaga = new Intent(getActivity().getApplicationContext(), MeusTrabalhos.class);
+        // Iniciando um intent para redirecionar para a outra activity
+        Intent TelaDetalheVaga = new Intent(getActivity().getApplicationContext(), MeusTrabalhos.class);
 
-            // Passando parametros para a activity que vai ser iniciada
-            //intent.putExtra("Item", (android.os.Parcelable) item);
+        // Passando parametros para a activity que vai ser iniciada
+        //intent.putExtra("Item", (android.os.Parcelable) item);
 
-            // Iniciando a activity e redirecionando para a tela de detalhamento da activity
-            startActivity(TelaDetalheVaga);
+        // Iniciando a activity e redirecionando para a tela de detalhamento da activity
+        startActivity(TelaDetalheVaga);
 
         // Mostra na tela qual foi o valor do item clicado
         Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
@@ -106,12 +108,21 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
 
         private final ProgressDialog dialog = new ProgressDialog(ListViewDemoFragment.this.getActivity());
 
+        // Metodo onde vamos atualizar a view
         @Override
         protected void onPostExecute(List<ListViewItem> result) {
             super.onPostExecute(result);
-            
+
             dialog.dismiss();
-            adpt.setItemList(result);
+
+            // Iniciando a variavel do adapter customizado
+            adpt = new ListViewDemoAdapter(getActivity(), result);
+
+            // initialize and set the list adapter
+            setListAdapter(adpt);
+
+
+            //adpt.setItemList(result);
             adpt.notifyDataSetChanged();
         }
 
@@ -142,7 +153,7 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
                 JSONArray arr = new JSONArray(JSONResp);
                 for (int i=0; i < arr.length(); i++) {
                     result.add(convertContact(arr.getJSONObject(i)));
-                    Log.i(TAG, String.valueOf(arr.getJSONObject(i)));
+                    Log.i(TAG,"Imprimindo o array: " + String.valueOf(arr.getJSONObject(i)));
                 }
                 return result;
             }
@@ -157,8 +168,8 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
         String name = null;
         String description = null;
         try {
-            name = obj.getString("title");
-            description = obj.getString("description");
+            name = obj.getString("rid");
+            description = obj.getString("name");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -166,6 +177,6 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
        /* String surname = obj.getString("surname");
         String email = obj.getString("email");
         String phoneNum = obj.getString("phoneNum");*/
-        return new ListViewItem(null, name, description);
+        return new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), name, description);
     }
 }

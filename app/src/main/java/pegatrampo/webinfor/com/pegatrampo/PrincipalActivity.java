@@ -139,8 +139,8 @@ public class PrincipalActivity extends Activity{
                 for(int i=0;i<Jarray.length();i++)
                 {
                     JSONObject Jasonobject = null;
-                    text_1 = (TextView)findViewById(R.id.tvTitle);
-                    text_2 = (TextView)findViewById(R.id.tvDescription);
+                    text_1 = (TextView)findViewById(R.id.textView4);
+                    //text_2 = (TextView)findViewById(R.id.textView4);
 
                     Jasonobject = Jarray.getJSONObject(i);
 
@@ -148,9 +148,9 @@ public class PrincipalActivity extends Activity{
                     String id = Jasonobject.getString("rid");
                     String name = Jasonobject.getString("name");
                     String password = Jasonobject.getString("weight");
-                    //text_1.append(id+"\t\t"+name+"\t\t"+password+"\t\t"+"\n");
-                    text_1.append(name);
-                    text_2.append(password);
+                    text_1.append(id+"\t\t"+name+"\t\t"+password+"\t\t"+"\n");
+                    //text_1.append(name);
+                    //text_2.append(password);
 
                 }
                 this.progressDialog.dismiss();
