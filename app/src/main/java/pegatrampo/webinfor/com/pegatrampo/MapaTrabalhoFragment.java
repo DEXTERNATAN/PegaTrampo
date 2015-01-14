@@ -449,7 +449,7 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
                    maps.addMarker(new MarkerOptions().position(
                             new LatLng(latitude, longitude)).title(DescVaga));
 
-                    Log.i(TAG,"Valor do endereçossss: " + DescVaga + endereco);
+                    //Log.i(TAG,"Valor do endereço: " + DescVaga + endereco);
 
                 }
                 this.progressDialog.dismiss();
