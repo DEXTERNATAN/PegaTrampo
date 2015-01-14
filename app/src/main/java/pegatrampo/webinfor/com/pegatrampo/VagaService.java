@@ -32,3 +32,6 @@ import java.util.ArrayList;
 // Trabalhando com PHP
 // Link de referencia:
 //      https://ugirusgiarto.wordpress.com/2011/10/27/json-php-mysql-with-asynctask-progressdialog/
+public class VagaService{
+
+        }
