@@ -129,7 +129,7 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog.setMessage("Downloading contacts...");
+            dialog.setMessage("Baixando trampos...");
             dialog.show();
         }
 

@@ -146,7 +146,7 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
 
         // Metodo para startar a activiti levando a rota do google - Leva o cara para traçar a rota na API do google
         // Fonte: http://brasildroid.com.br/desenvolvimento-de-aplicacoes-jogos/11062-chamar-intent-google-navigation.html
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:ll=-15.780148200000000000,-47.929169800000010000&mode=w")));
+        //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:ll=-15.780148200000000000,-47.929169800000010000&mode=w")));
 
         // Método para traçar a rota no mapa usando pollyLines
         getRoute(new LatLng(-15.780148200000000000, -47.929169800000010000), new LatLng(latitude, longitude));
