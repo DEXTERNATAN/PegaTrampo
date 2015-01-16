@@ -7,16 +7,15 @@ package pegatrampo.webinfor.com.pegatrampo;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
-import android.net.Uri;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -28,6 +27,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -91,55 +91,26 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
             e.printStackTrace();
         }
 
+
+        // Instanciando o google maps
         googleMap = mMapView.getMap();
-        // latitude and longitude
-        latitude = -15.780148200000000000;
-        longitude = -47.929169800000010000;
 
-        // Vou passar o endereço e o metodo vai retornar a latitude e longitude do endereço para eu setar o marcador no mapa
-        // Link de referencia:
-        // http://pt.stackoverflow.com/questions/31547/como-retornar-latitude-e-longitude-no-android-google-maps
-        // http://stackoverflow.com/questions/472313/android-reverse-geocoding-getfromlocation
-
-        // Parametro de busca do google para resolver esta questão "android mapview geocoder example"
-
-         // Muito bom este link - http://www.botecodigital.info/javascript/introducao-a-api-de-mapas-do-google-maps/
-
-        //geocoder = new Geocoder(this);
-        /*List<Address> enderecos = geocoder.getFromLocationName("Av. Sampaio Vidal, Centro, Marília, SP", 1);
-        if (enderecos.size() > 0) {
-            Log.v("tag", "coordenadas " + enderecos.get(0).getLatitude() + ", " + enderecos.get(0).getLongitude());
-        }
-        */
-
-        // Classe que conecta no banco de dados e traz o endereço da vaga
-        //ProgressDialog progressDialog = new ProgressDialog(MapaTrabalhoFragment.this.getActivity());
-
-        // Exec async load task
+        // Exec async load task para buscar os endereços e setar os marcadores no mapa
         (new VagaService(googleMap)).execute("http://mrestituicao.com.br/select.php");
 
-        // Atualiza o marcador de acordo com o endereço informado.
-        //mapCurrentAddress(endereco.txvEndereco);
-        //Log.i(TAG,"Valor do endereço: " + endereco.txvEndereco);
-
-        // create marker(marcador)
-        MarkerOptions marker = new MarkerOptions().position(
-                new LatLng(-15.780148200000000000, -47.929169800000010000)).title("Analista de sistemas"+distance);
+        // Criando um marcador
+        /*MarkerOptions marker = new MarkerOptions().position(
+                new LatLng(-15.780148200000000000, -47.929169800000010000)).title("Analista de sistemas");*/
 
 
-        // Changing marker icon
-        marker.icon(BitmapDescriptorFactory
-                .defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+        // Mudando o icone do marcador
+        /*marker.icon(BitmapDescriptorFactory
+                .defaultMarker(BitmapDescriptorFactory.fromResource(R.drawable.ic_job_map));*/
 
-
-
-
-
-        // adding marker
-        googleMap.addMarker(marker);
+        // Adicionando o marcador no mapa
+        //googleMap.addMarker(marker);
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(new LatLng(-15.780148200000000000, -47.929169800000010000)).zoom(12).build();
-
 
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         //googleMap.animateCamera(CameraUpdateFactory.zoomTo(17),200,null);
@@ -158,11 +129,10 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
         //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:ll=-15.780148200000000000,-47.929169800000010000&mode=w")));
 
         // Método para traçar a rota no mapa usando pollyLines
-        getRoute(new LatLng(-15.780148200000000000, -47.929169800000010000), new LatLng(latitude, longitude));
+        //getRoute(new LatLng(-15.780148200000000000, -47.929169800000010000), new LatLng(latitude, longitude));
 
-        // Perform any camera updates here
         return v;
-        //return inflater.inflate(R.layout.fragment_mapa_trabalho, container, false);
+
 
     }
 
@@ -306,21 +276,21 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
         List<Address> addresses;
         try {
             addresses = gc.getFromLocationName(addressString, 1);
-            //String add = "";
+            String add = "";
             if (addresses.size() > 0) {
 
                 address = addresses.get(0);
-                /*for (int i=0; i<address.getMaxAddressLineIndex();i++) {
+                for (int i=0; i<address.getMaxAddressLineIndex();i++) {
                     add += address.getAddressLine(i) + "\n";
 
-                }*/
+                }
                 latitude = address.getLatitude();
                 longitude = address.getLongitude();
-                //Toast.makeText(getBaseContext(), add, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), add, Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "Valor da latitude " + latitude + " Valor da Longitude: " + longitude);
 
             } else {
-                //Toast.makeText(getBaseContext(),"We failed to locate this address.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"We failed to locate this address.", Toast.LENGTH_SHORT).show();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -360,12 +330,12 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
     public class VagaService extends AsyncTask<String, String, Void> {
 
         private static final String TAG = "PEGATRAMPOS";
+        private ProgressDialog progressDialog = new ProgressDialog(MapaTrabalhoFragment.this.getActivity());
         private InputStream is = null ;
         private String result = "";
-        public String txvEndereco;
-        Context c;
-        private ProgressDialog progressDialog = new ProgressDialog(MapaTrabalhoFragment.this.getActivity());
+        private Context c;
         GoogleMap maps;
+
 
         public VagaService(GoogleMap mapIn){
            maps = mapIn;
@@ -374,22 +344,23 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
 
 
         protected void onPreExecute() {
-            Log.i(TAG, "Entrando no onPreExecute");
+
             progressDialog.setMessage("Buscando dados. Aguarde ...");
             progressDialog.show();
+
             progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface arg0) {
                     VagaService.this.cancel(true);
                 }
             });
+
         }
 
         @Override
         protected Void doInBackground(String... params) {
-            String url_select = "http://mrestituicao.com.br/select.php";
 
-            Log.i(TAG, "URL: " + url_select);
+            String url_select = "http://mrestituicao.com.br/select.php";
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url_select);
 
@@ -420,10 +391,8 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
                 result=sb.toString();
 
             } catch (Exception e) {
-                // TODO: handle exception
                 Log.e("log_tag", "Error converting result "+e.toString());
             }
-
 
             return null;
 
@@ -431,7 +400,7 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
 
         protected void onPostExecute(Void v) {
 
-            // Tratando dados do tipó JSON
+            // Tratando dados do tipo JSON
             try {
                 JSONArray Jarray = new JSONArray(result);
                 for(int i=0;i<Jarray.length();i++)
@@ -442,26 +411,75 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
                     //1 - Pegar dados do banco e mostrar na tela
                     String endereco = Jasonobject.getString("Endereco");
                     String DescVaga = Jasonobject.getString("Desc_vaga");
+                    String sumario = Jasonobject.getString("sumario_vaga");
 
-                    // Chamar metodo que recebe o endereco e localiza a latitude e longitude
+                    // Chamar metodo que recebe o endereco e localiza a latitude e longitude setando o marcador de acordo
+                    // com o novo endereço que veio do banco de dados
                     mapCurrentAddress(endereco);
+                    Marker markerTrampos = maps.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)));
 
-                   maps.addMarker(new MarkerOptions().position(
-                            new LatLng(latitude, longitude)).title(DescVaga));
+                    // Mudando o titulo do marcador de acordo com a vaga
+                    markerTrampos.setTitle(DescVaga);
 
-                    //Log.i(TAG,"Valor do endereço: " + DescVaga + endereco);
+                    // Adicionando descrição ao marcador do mapa
+                    markerTrampos.setSnippet(sumario);
+
+                    // Alterando padrão do marcador para um customizado de acordo com o pegatrampos
+                    markerTrampos.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.office_worker_04));
+
+                    // Fazer com que a janela de titulo e descrição fiquem ativas por padrão
+                    markerTrampos.showInfoWindow();
+
+                    onMarkerClick(markerTrampos);
+
 
                 }
                 this.progressDialog.dismiss();
 
             } catch (Exception e) {
-                // TODO: handle exception
                 Log.e("log_tag", "Error parsing data "+e.toString());
             }
 
         }
 
 
+    }
+
+
+    public boolean onMarkerClick(Marker marker) {
+        // TODO Auto-generated method stub
+        // googleMap.clear();
+        Toast.makeText(getActivity(), "USER MARKER",Toast.LENGTH_LONG).show();
+        Log.i(TAG, "Passei por aqui quando cliquei no marcador");
+
+        return true;
+    }
+
+    //Manipular eventos de toque (onTouchEvent)
+    //Fonte: http://www.androidsnippets.com/handle-touch-events-ontouchevent
+    public boolean onTouchEvent(MotionEvent event) {
+        int eventaction = event.getAction();
+
+        switch (eventaction) {
+            case MotionEvent.ACTION_DOWN:
+                // finger touches the screen - Dedo toca a tela.
+                Log.i(TAG,"Dedo toca a tela");
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                // finger moves on the screen -  Dedo se move na tela.
+                Log.i(TAG,"Dedo se move na tela");
+                break;
+
+            case MotionEvent.ACTION_UP:
+                // finger leaves the screen -  Dedo deixa a tela.
+                Log.i(TAG,"Dedo deixa a tela");
+                break;
+        }
+
+        // tell the system that we handled the event and no further processing is required
+        //Informar ao sistema que lidamos com o evento e nenhum processamento adicional é necessária
+        return true;
     }
 
 
