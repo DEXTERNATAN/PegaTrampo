@@ -75,18 +75,18 @@ public class ListaTrabalhoFragment extends android.support.v4.app.Fragment {
     private ArrayList<ListviewContactItem> GetlistContact(){
         ArrayList<ListviewContactItem> contactlist = new ArrayList<ListviewContactItem>();
 
-        ListviewContactItem contact = new ListviewContactItem();
+        ListviewContactItem contact = new ListviewContactItem(1,"Teste","er");
 
         contact.setName("Analista de Sistemas");
         contact.setPhone("01213113568");
         contactlist.add(contact);
 
-        contact = new ListviewContactItem();
+        contact = new ListviewContactItem(1,"Teste","er");
         contact.setName("Analista de Redes");
         contact.setPhone("01213869102");
         contactlist.add(contact);
 
-        contact = new ListviewContactItem();
+        contact = new ListviewContactItem(1,"Teste","er");
         contact.setName("Analista de Testes");
         contact.setPhone("01213123985");
         contactlist.add(contact);

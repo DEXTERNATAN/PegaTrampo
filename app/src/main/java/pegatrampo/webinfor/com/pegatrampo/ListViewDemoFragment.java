@@ -1,8 +1,6 @@
 package pegatrampo.webinfor.com.pegatrampo;
 
 import android.app.Dialog;
-import android.app.ListActivity;
-import android.app.ListFragment;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -10,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -40,6 +37,8 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
     Dialog dialog;
     ListViewDemoAdapter adpt;
 
+    ListviewContactItem newContact;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,29 +46,6 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
         // initialize the items list
         mItems = new ArrayList<ListViewItem>();
         resources = getResources();
-
-
-        //mItems.add(new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), getString(R.string.str_aim),getString(R.string.str_txt_search), getString(R.string.str_aim_description)));
-        //mItems.add(new ListViewItem(resources.getDrawable(R.drawable.jobs_2), getString(R.string.str_bebo), getString(R.string.str_txt_search), getString(R.string.str_bebo_description)));
-        /*mItems.add(new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), getString(R.string.str_youtube),  getString(R.string.str_youtube_description)));
-        mItems.add(new ListViewItem(resources.getDrawable(R.drawable.jobs_2), getString(R.string.str_bebo),  getString(R.string.str_bebo_description)));
-        mItems.add(new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), getString(R.string.str_youtube),  getString(R.string.str_youtube_description)));
-        mItems.add(new ListViewItem(resources.getDrawable(R.drawable.jobs_2), getString(R.string.str_bebo), getString(R.string.str_bebo_description)));
-        mItems.add(new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), getString(R.string.str_youtube), getString(R.string.str_youtube_description)));
-        mItems.add(new ListViewItem(resources.getDrawable(R.drawable.jobs_2), getString(R.string.str_bebo), getString(R.string.str_bebo_description)));
-        mItems.add(new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), getString(R.string.str_youtube),  getString(R.string.str_youtube_description)));
-        mItems.add(new ListViewItem(resources.getDrawable(R.drawable.jobs_2), getString(R.string.str_bebo),   getString(R.string.str_bebo_description)));
-        mItems.add(new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), getString(R.string.str_youtube),  getString(R.string.str_youtube_description)));
-        mItems.add(new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), getString(R.string.str_aim),   getString(R.string.str_aim_description)));
-        mItems.add(new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), getString(R.string.str_aim),  getString(R.string.str_aim_description)));
-        */
-        /*// Iniciando a variavel do adapter customizado
-        adpt = new ListViewDemoAdapter(getActivity(), mItems);
-
-        // initialize and set the list adapter
-        setListAdapter(adpt);
-*/
-        // teste para subir arquivo
 
         // Exec async load task
         (new AsyncListViewLoader()).execute("http://mrestituicao.com.br/select.php");
@@ -85,22 +61,17 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
 
-        // recuperar o item do listView
-        ListViewItem item = mItems.get(position);
-
-        // Quando clicar no item levar o cara para outra tela com a descrição e o nome da vaga
-
         // Iniciando um intent para redirecionar para a outra activity
-        Intent TelaDetalheVaga = new Intent(getActivity().getApplicationContext(), MeusTrabalhos.class);
+        Intent TelaDetalheVaga = new Intent(getActivity(), MeusTrabalhos.class);
 
         // Passando parametros para a activity que vai ser iniciada
-        //intent.putExtra("Item", (android.os.Parcelable) item);
+        TelaDetalheVaga.putExtra("Vaga", newContact);
 
         // Iniciando a activity e redirecionando para a tela de detalhamento da activity
         startActivity(TelaDetalheVaga);
 
         // Mostra na tela qual foi o valor do item clicado
-        Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "Teste", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -121,9 +92,8 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
             // initialize and set the list adapter
             setListAdapter(adpt);
 
-
-            //adpt.setItemList(result);
-            adpt.notifyDataSetChanged();
+            adpt.setItemList(result);
+            //adpt.notifyDataSetChanged();
         }
 
         @Override
@@ -168,8 +138,18 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
         String name = null;
         String description = null;
         try {
-            name = obj.getString("rid");
-            description = obj.getString("name");
+
+            Integer IdContato = obj.getInt("id_vaga");
+            name = obj.getString("Desc_vaga");
+            description = obj.getString("sumario_vaga");
+
+
+            // Adicionando os dados do objeto na memoria
+            newContact = new ListviewContactItem(IdContato,name,description);
+
+
+            Log.i(TAG, "Valores impressos: " + IdContato + name + " - " + description);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
