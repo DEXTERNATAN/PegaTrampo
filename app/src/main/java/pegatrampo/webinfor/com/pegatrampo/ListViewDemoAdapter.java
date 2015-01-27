@@ -36,7 +36,7 @@ public class ListViewDemoAdapter extends ArrayAdapter<ListViewItem> {
 
             // initialize the view holder
             viewHolder = new ViewHolder();
-            viewHolder.ivIcon = (ImageView) convertView.findViewById(R.id.ivIcon);
+            //viewHolder.ivIcon = (ImageView) convertView.findViewById(R.id.ivIcon);
             viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
             //viewHolder.tvSearch = (TextView) convertView.findViewById(R.id.tvSearch);
             viewHolder.tvDescription = (TextView) convertView.findViewById(R.id.tvDescription);
@@ -48,7 +48,7 @@ public class ListViewDemoAdapter extends ArrayAdapter<ListViewItem> {
 
         // update the item view
         ListViewItem item = getItem(position);
-        viewHolder.ivIcon.setImageDrawable(item.icon);
+        //viewHolder.ivIcon.setImageDrawable(item.icon);
         viewHolder.tvTitle.setText(item.title);
         //viewHolder.tvSearch.setText(item.tvSearch);
         viewHolder.tvDescription.setText(item.description);
@@ -73,7 +73,7 @@ public class ListViewDemoAdapter extends ArrayAdapter<ListViewItem> {
     //** @see http://developer.android.com/training/improving-layouts/smooth-scrolling.html#ViewHolder
 
     private static class ViewHolder {
-        ImageView ivIcon;
+        //ImageView ivIcon;
         TextView tvTitle;
         //TextView tvSearch;
         TextView tvDescription;

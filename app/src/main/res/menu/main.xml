@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
     <item android:id="@+id/action_example"
           android:title="@string/action_example"
-          android:showAsAction="withText|ifRoom" />
+          android:showAsAction="always"
+        tools:ignore="AppCompatResource" />
 
     <item android:id="@+id/action_settings"
           android:title="@string/action_settings"
           android:orderInCategory="100"
-          android:showAsAction="never" />
+          android:showAsAction="always"
+        tools:ignore="AppCompatResource" />
 </menu>
