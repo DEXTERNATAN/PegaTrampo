@@ -1,8 +1,8 @@
 package pegatrampo.webinfor.com.pegatrampo;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,23 +31,21 @@ import org.json.JSONObject;
 public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
 
     private static final String TAG = "PEGATRAMPO";
+    // Declaração de variaveis
     private ListView listView;
-    //private List<ListViewItem> mItems;
+    private List<ListViewItem> mItems;
     private Resources resources;
+    Dialog dialog;
     ListViewDemoAdapter adpt;
 
-    // Declarando e instanciando o o Arraylist que vai ser usando
-    List<ListviewContactItem> ListObVagas = new ArrayList<ListviewContactItem>();
-
-    // Declarando e instanciando o objeto que vai ser repassado entre as activitys
-    ListviewContactItem Contato;
+    ListviewContactItem newContact;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // initialize the items list
-        //mItems = new ArrayList<ListViewItem>();
+        mItems = new ArrayList<ListViewItem>();
         resources = getResources();
 
         // Exec async load task
@@ -61,25 +59,22 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
         getListView().setDivider(null);
     }
 
-
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l,v,position,id);
 
-
-        ListViewItem s = (ListViewItem) l.getAdapter().getItem(position);
-        //ListViewItem s = adpt.getItem(position); - funcionou
-
-        Toast.makeText(getActivity(), "Teste" +  "Valor: " + s.title , Toast.LENGTH_SHORT).show();
-
+        // Iniciando um intent para redirecionar para a outra activity
         Intent TelaDetalheVaga = new Intent(getActivity(), MeusTrabalhos.class);
-        TelaDetalheVaga.putExtra("Vaga", s);
-        //TelaDetalheVaga.putExtra("Descricao", item.getPhone());
+
+        // Passando parametros para a activity que vai ser iniciada
+        TelaDetalheVaga.putExtra("Vaga", newContact);
+
+        // Iniciando a activity e redirecionando para a tela de detalhamento da activity
         startActivity(TelaDetalheVaga);
 
-
-
+        // Mostra na tela qual foi o valor do item clicado
+        //Toast.makeText(getActivity(), "Teste", Toast.LENGTH_SHORT).show();
     }
+
 
     private class AsyncListViewLoader extends AsyncTask<String, Void, List<ListViewItem>> {
 
@@ -98,7 +93,7 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
             // initialize and set the list adapter
             setListAdapter(adpt);
 
-            //adpt.setItemList(result);
+            adpt.setItemList(result);
             //adpt.notifyDataSetChanged();
         }
 
@@ -149,20 +144,20 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
             name = obj.getString("Desc_vaga");
             description = obj.getString("sumario_vaga");
 
-            // Instanciando o objeto para preencher com dados
-            Contato = new ListviewContactItem();
-            Contato.setId(IdContato);
-            Contato.setName(name);
-            Contato.setPhone(description);
 
-            // Adicionando ao listViewCotactItem os dados
-            ListObVagas.add(Contato);
+            // Adicionando os dados do objeto na memoria
+            newContact = new ListviewContactItem(IdContato,name,description);
 
-            Log.i(TAG, "Valores impressos: " + Contato.getName() + " - " + name );
+
+            Log.i(TAG, "Valores impressos: " + IdContato + name + " - " + description);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        //getString("title");
+       /* String surname = obj.getString("surname");
+        String email = obj.getString("email");
+        String phoneNum = obj.getString("phoneNum");*/
         return new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), name, description);
     }
 }

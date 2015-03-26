@@ -17,10 +17,6 @@ public class ListviewContactItem implements Serializable {
         this.phone = telefone;
     }
 
-    public ListviewContactItem(){
-
-    }
-
     public void setId(Integer id){ this.Id = id; }
 
     public Integer getId(){ return Id; }

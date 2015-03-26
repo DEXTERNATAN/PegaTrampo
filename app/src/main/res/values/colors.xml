@@ -4,10 +4,4 @@
     <color name="frame_solid">#eee</color>
     <!--<color name="frame_background">#bcbcbc</color>-->
     <color name="frame_background">#032F48</color>
-
-    <!--Customizando o status bar - cores-->
-    <color name="primary">#2196F3</color><!--Color primary-->
-    <color name="primary_dark">#3949AB</color><!--Color primary_dark-->
-    <color name="accent">#FFF</color><!--Color accent-->
-
 </resources>
