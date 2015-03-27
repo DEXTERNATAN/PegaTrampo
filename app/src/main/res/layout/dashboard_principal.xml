@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:background="@color/com_facebook_likeboxcountview_border_color">
+
+<!--
+    <com.google.android.apps.iosched.ui.widget.DashboardLayout
+        android:layout_width="fill_parent"
+        android:layout_heigth="wrap_content"
+        android:layout_weigth="1"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btClassicos"
+            android:text="Menu Classico"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/btn_carro_classico"
+            android:drawablePadding="10dp"
+            android:Backgraound="@null"
+            android:textStyle="bold"
+            android:textColor="#000"
+            />
+
+        <Button
+            android:id="@+id/btLuxo"
+            android:text="Menu Luxo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/btn_carro_classico"
+            android:drawablePadding="10dp"
+            android:Backgraound="@null"
+            android:textStyle="bold"
+            android:textColor="#000"
+            />
+
+        <Button
+            android:id="@+id/btEsportivo"
+            android:text="Menu Esportivo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/btn_carro_classico"
+            android:drawablePadding="10dp"
+            android:Backgraound="@null"
+            android:textStyle="bold"
+            android:textColor="#000"
+            />
+
+        <Button
+            android:id="@+id/btSobre"
+            android:text="Menu Sobre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/btn_carro_classico"
+            android:drawablePadding="10dp"
+            android:Backgraound="@null"
+            android:textStyle="bold"
+            android:textColor="#000"
+            />
+
+    </com.google.android.apps.iosched.ui.widget.DashboardLayout>
+-->
+
+
+
+</LinearLayout>

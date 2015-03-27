@@ -13,6 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.TextView;
+
+import com.facebook.widget.ProfilePictureView;
 
 
 public class MainActivity extends ActionBarActivity
@@ -28,14 +31,29 @@ public class MainActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    public String usuario;
+    public String IdUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+
+        // Buscando valores da outra tela
+        Bundle b = getIntent().getExtras();
+        usuario = b.getString("Nome");
+        IdUsuario = b.getString("Id");
+
+        TextView DisplayUser = (TextView)findViewById(R.id.headerView);
+        DisplayUser.setText(usuario);
+
+        ProfilePictureView ppv = (ProfilePictureView) findViewById(R.id.PFacebbok);
+        ppv.setProfileId(String.valueOf(IdUsuario));
+
+        Log.i("PEGATRAMPOS","Valor" + usuario + IdUsuario);
+
+        mNavigationDrawerFragment = (NavigationDrawerFragment)getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
         // Set up the drawer.
