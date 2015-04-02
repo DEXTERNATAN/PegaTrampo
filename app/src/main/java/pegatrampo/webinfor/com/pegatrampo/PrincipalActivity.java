@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.facebook.Request;
@@ -24,9 +23,8 @@ import com.facebook.widget.ProfilePictureView;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-import java.util.List;
 
-public class PrincipalActivity extends Activity{
+public class PrincipalActivity extends Activity {
 
     private static final String TAG = "PegaTrampos - AsyncTask";
     private UiLifecycleHelper uiHelper;
@@ -49,14 +47,13 @@ public class PrincipalActivity extends Activity{
 
         LoginButton lb = (LoginButton) findViewById(R.id.authButton);
         lb.setPublishPermissions(Arrays.asList("email", "public_profile", "user_friends"));
-        Log.i("PEGATRAMPOS","Valor" + Nome + "gfjgf");
-      lb.setOnClickListener(new View.OnClickListener() {
+        Log.i("PEGATRAMPOS", "Valor" + Nome + "gfjgf");
+        lb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent telaInicioApp = new Intent(PrincipalActivity.this,MainActivity.class);
+                Intent telaInicioApp = new Intent(PrincipalActivity.this, MainActivity.class);
                 PrincipalActivity.this.startActivity(telaInicioApp);
-
 
 
                 Bundle b = new Bundle();
@@ -72,7 +69,7 @@ public class PrincipalActivity extends Activity{
 
         // metodo para buscar qual KeyHash estamos usando no aplicativo
         try {
-            PackageInfo info = getPackageManager().getPackageInfo("pegatrampo.webinfor.com.pegatrampo",PackageManager.GET_SIGNATURES);
+            PackageInfo info = getPackageManager().getPackageInfo("pegatrampo.webinfor.com.pegatrampo", PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
@@ -92,7 +89,7 @@ public class PrincipalActivity extends Activity{
         super.onResume();
 
         Session session = Session.getActiveSession();
-        if(session != null && (session.isClosed() || session.isOpened())){
+        if (session != null && (session.isClosed() || session.isOpened())) {
             onSessionStateChanged(session, session.getState(), null);
         }
 
@@ -127,17 +124,17 @@ public class PrincipalActivity extends Activity{
     }
 
     // METHODS FACEBOOK
-    public void onSessionStateChanged(final Session session, SessionState state, Exception exception){
-        if(session != null && session.isOpened()){
+    public void onSessionStateChanged(final Session session, SessionState state, Exception exception) {
+        if (session != null && session.isOpened()) {
             Log.i("Script", "Usuário conectado");
             Request.newMeRequest(session, new Request.GraphUserCallback() {
                 @Override
                 public void onCompleted(GraphUser user, Response response) {
                     if (user != null) {
 
-                        Log.i(TAG,"Nome do usuario: " + user.getFirstName());
-                        Log.i(TAG,"Email do usuario: " + user.getProperty("email").toString());
-                        Log.i(TAG,"ID do usuario: " + user.getId());
+                        Log.i(TAG, "Nome do usuario: " + user.getFirstName());
+                        Log.i(TAG, "Email do usuario: " + user.getProperty("email").toString());
+                        Log.i(TAG, "ID do usuario: " + user.getId());
 
                         TextView tv = (TextView) findViewById(R.id.name);
                         tv.setText(user.getFirstName() + " " + user.getLastName());
@@ -151,8 +148,6 @@ public class PrincipalActivity extends Activity{
                         ProfilePictureView ppv = (ProfilePictureView) findViewById(R.id.fbImg);
                         ppv.setProfileId(user.getId());
 
-                        
-
 
                         //PrincipalActivity.this.finish();
 
@@ -160,8 +155,7 @@ public class PrincipalActivity extends Activity{
                     }
                 }
             }).executeAsync();
-        }
-        else{
+        } else {
             Log.i("Script", "Usuário não conectado");
         }
     }
@@ -178,8 +172,6 @@ public class PrincipalActivity extends Activity{
             }
         }).executeAsync();
     }*/
-
-
 
 
 }

@@ -20,9 +20,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -59,20 +59,16 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
 
 
     MapView mMapView;
+    View rootView;
+    Address address;
+    double latitude;
+    double longitude;
     private GoogleMap googleMap;
     private Geocoder geocoder;
-
     // Traçar rotas
     private Polyline polyline;
     private List<LatLng> list;
     private long distance;
-
-    View rootView;
-    Address address;
-
-    double latitude;
-    double longitude;
-
 
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -96,7 +92,7 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
         googleMap = mMapView.getMap();
 
         // Exec async load task para buscar os endereços e setar os marcadores no mapa
-        (new VagaService(googleMap)).execute("http://mrestituicao.com.br/select.php");
+        (new VagaService(googleMap)).execute("http://mrestituicao.com.br/lista_dados.php");
 
         // Criando um marcador
         /*MarkerOptions marker = new MarkerOptions().position(
@@ -325,22 +321,56 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
         mMapView.onLowMemory();
     }
 
+    public boolean onMarkerClick(Marker marker) {
+        // TODO Auto-generated method stub
+        // googleMap.clear();
+        Toast.makeText(getActivity(), "USER MARKER", Toast.LENGTH_LONG).show();
+        Log.i(TAG, "Passei por aqui quando cliquei no marcador");
+
+        return true;
+    }
+
+    //Manipular eventos de toque (onTouchEvent)
+    //Fonte: http://www.androidsnippets.com/handle-touch-events-ontouchevent
+    public boolean onTouchEvent(MotionEvent event) {
+        int eventaction = event.getAction();
+
+        switch (eventaction) {
+            case MotionEvent.ACTION_DOWN:
+                // finger touches the screen - Dedo toca a tela.
+                Log.i(TAG, "Dedo toca a tela");
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                // finger moves on the screen -  Dedo se move na tela.
+                Log.i(TAG, "Dedo se move na tela");
+                break;
+
+            case MotionEvent.ACTION_UP:
+                // finger leaves the screen -  Dedo deixa a tela.
+                Log.i(TAG, "Dedo deixa a tela");
+                break;
+        }
+
+        // tell the system that we handled the event and no further processing is required
+        //Informar ao sistema que lidamos com o evento e nenhum processamento adicional é necessária
+        return true;
+    }
 
     // Classe asynctask que busca dados do banco de dados e cria novos marcadores
     public class VagaService extends AsyncTask<String, String, Void> {
 
         private static final String TAG = "PEGATRAMPOS";
+        GoogleMap maps;
         private ProgressDialog progressDialog = new ProgressDialog(MapaTrabalhoFragment.this.getActivity());
-        private InputStream is = null ;
+        private InputStream is = null;
         private String result = "";
         private Context c;
-        GoogleMap maps;
 
 
-        public VagaService(GoogleMap mapIn){
-           maps = mapIn;
+        public VagaService(GoogleMap mapIn) {
+            maps = mapIn;
         }
-
 
 
         protected void onPreExecute() {
@@ -360,7 +390,7 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
         @Override
         protected Void doInBackground(String... params) {
 
-            String url_select = "http://mrestituicao.com.br/select.php";
+            String url_select = "http://mrestituicao.com.br/lista_dados.php";
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url_select);
 
@@ -373,7 +403,7 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
                 HttpEntity httpEntity = httpResponse.getEntity();
 
                 //Lê o conteúdo
-                is =  httpEntity.getContent();
+                is = httpEntity.getContent();
 
             } catch (Exception e) {
 
@@ -383,15 +413,14 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 StringBuilder sb = new StringBuilder();
                 String line = "";
-                while((line=br.readLine())!=null)
-                {
-                    sb.append(line+"\n");
+                while ((line = br.readLine()) != null) {
+                    sb.append(line + "\n");
                 }
                 is.close();
-                result=sb.toString();
+                result = sb.toString();
 
             } catch (Exception e) {
-                Log.e("log_tag", "Error converting result "+e.toString());
+                Log.e("log_tag", "Error converting result " + e.toString());
             }
 
             return null;
@@ -403,15 +432,16 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
             // Tratando dados do tipo JSON
             try {
                 JSONArray Jarray = new JSONArray(result);
-                for(int i=0;i<Jarray.length();i++)
-                {
+                for (int i = 0; i < Jarray.length(); i++) {
                     JSONObject Jasonobject = null;
                     Jasonobject = Jarray.getJSONObject(i);
 
                     //1 - Pegar dados do banco e mostrar na tela
-                    String endereco = Jasonobject.getString("Endereco");
-                    String DescVaga = Jasonobject.getString("Desc_vaga");
-                    String sumario = Jasonobject.getString("sumario_vaga");
+                    String endereco = Jasonobject.getString("id_endereco");
+                    String DescVaga = Jasonobject.getString("ds_oportunidade");
+                    String sumario = Jasonobject.getString("ds_oportunidade");
+
+                    Log.i(TAG, endereco);
 
                     // Chamar metodo que recebe o endereco e localiza a latitude e longitude setando o marcador de acordo
                     // com o novo endereço que veio do banco de dados
@@ -437,49 +467,12 @@ public class MapaTrabalhoFragment extends android.support.v4.app.Fragment {
                 this.progressDialog.dismiss();
 
             } catch (Exception e) {
-                Log.e("log_tag", "Error parsing data "+e.toString());
+                Log.e("log_tag", "Error parsing data " + e.toString());
             }
 
         }
 
 
-    }
-
-
-    public boolean onMarkerClick(Marker marker) {
-        // TODO Auto-generated method stub
-        // googleMap.clear();
-        Toast.makeText(getActivity(), "USER MARKER",Toast.LENGTH_LONG).show();
-        Log.i(TAG, "Passei por aqui quando cliquei no marcador");
-
-        return true;
-    }
-
-    //Manipular eventos de toque (onTouchEvent)
-    //Fonte: http://www.androidsnippets.com/handle-touch-events-ontouchevent
-    public boolean onTouchEvent(MotionEvent event) {
-        int eventaction = event.getAction();
-
-        switch (eventaction) {
-            case MotionEvent.ACTION_DOWN:
-                // finger touches the screen - Dedo toca a tela.
-                Log.i(TAG,"Dedo toca a tela");
-                break;
-
-            case MotionEvent.ACTION_MOVE:
-                // finger moves on the screen -  Dedo se move na tela.
-                Log.i(TAG,"Dedo se move na tela");
-                break;
-
-            case MotionEvent.ACTION_UP:
-                // finger leaves the screen -  Dedo deixa a tela.
-                Log.i(TAG,"Dedo deixa a tela");
-                break;
-        }
-
-        // tell the system that we handled the event and no further processing is required
-        //Informar ao sistema que lidamos com o evento e nenhum processamento adicional é necessária
-        return true;
     }
 
 

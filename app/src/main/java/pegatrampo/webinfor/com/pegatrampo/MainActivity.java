@@ -1,38 +1,34 @@
 package pegatrampo.webinfor.com.pegatrampo;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.TextView;
-
-import com.facebook.widget.ProfilePictureView;
 
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private static final String CATEGORIA = "PEGATRAMPOS";
+    public String usuario;
+    public String IdUsuario;
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
-    public String usuario;
-    public String IdUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,19 +37,19 @@ public class MainActivity extends ActionBarActivity
 
 
         // Buscando valores da outra tela
-        Bundle b = getIntent().getExtras();
+        /*Bundle b = getIntent().getExtras();
         usuario = b.getString("Nome");
-        IdUsuario = b.getString("Id");
+        IdUsuario = b.getString("Id");*/
 
-        TextView DisplayUser = (TextView)findViewById(R.id.headerView);
+/*        TextView DisplayUser = (TextView)findViewById(R.id.headerView);
         DisplayUser.setText(usuario);
 
         ProfilePictureView ppv = (ProfilePictureView) findViewById(R.id.PFacebbok);
-        ppv.setProfileId(String.valueOf(IdUsuario));
+        ppv.setProfileId(String.valueOf(IdUsuario));*/
 
-        Log.i("PEGATRAMPOS","Valor" + usuario + IdUsuario);
+        //Log.i("PEGATRAMPOS","Valor" + usuario + IdUsuario);
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
         // Set up the drawer.
@@ -184,6 +180,9 @@ public class MainActivity extends ActionBarActivity
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
+        public PlaceholderFragment() {
+        }
+
         /**
          * Returns a new instance of this fragment for the given section
          * number.
@@ -194,9 +193,6 @@ public class MainActivity extends ActionBarActivity
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
-        }
-
-        public PlaceholderFragment() {
         }
 
         @Override
@@ -211,8 +207,6 @@ public class MainActivity extends ActionBarActivity
             ((MainActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
-
-
 
 
     }

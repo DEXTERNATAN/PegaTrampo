@@ -1,6 +1,7 @@
 package pegatrampo.webinfor.com.pegatrampo;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -9,18 +10,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import android.app.ProgressDialog;
-import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * Created by 98287028191 on 16/12/14.
@@ -31,14 +30,13 @@ import org.json.JSONObject;
 public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
 
     private static final String TAG = "PEGATRAMPO";
+    Dialog dialog;
+    ListViewDemoAdapter adpt;
+    ListviewContactItem newContact;
     // Declaração de variaveis
     private ListView listView;
     private List<ListViewItem> mItems;
     private Resources resources;
-    Dialog dialog;
-    ListViewDemoAdapter adpt;
-
-    ListviewContactItem newContact;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +47,7 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
         resources = getResources();
 
         // Exec async load task
-        (new AsyncListViewLoader()).execute("http://mrestituicao.com.br/select.php");
+        (new AsyncListViewLoader()).execute("http://mrestituicao.com.br/lista_dados.php");
     }
 
     @Override
@@ -75,6 +73,31 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
         //Toast.makeText(getActivity(), "Teste", Toast.LENGTH_SHORT).show();
     }
 
+    private ListViewItem convertContact(JSONObject obj) {
+        String name = null;
+        String description = null;
+        try {
+
+            Integer IdContato = obj.getInt("id_oportunidade");
+            name = obj.getString("ds_oportunidade");
+            description = obj.getString("sumario_oportunidade");
+
+
+            // Adicionando os dados do objeto na memoria
+            newContact = new ListviewContactItem(IdContato, name, description);
+
+
+            Log.i(TAG, "Valores impressos: " + IdContato + name + " - " + description);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //getString("title");
+       /* String surname = obj.getString("surname");
+        String email = obj.getString("email");
+        String phoneNum = obj.getString("phoneNum");*/
+        return new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), name, description);
+    }
 
     private class AsyncListViewLoader extends AsyncTask<String, Void, List<ListViewItem>> {
 
@@ -115,49 +138,22 @@ public class ListViewDemoFragment extends android.support.v4.app.ListFragment {
                 conn.setRequestMethod("GET");
                 conn.connect();
                 InputStream is = conn.getInputStream();
-// Read the stream
+                // Read the stream
                 byte[] b = new byte[1024];
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                while ( is.read(b) != -1)
+                while (is.read(b) != -1)
                     baos.write(b);
                 String JSONResp = new String(baos.toByteArray());
                 JSONArray arr = new JSONArray(JSONResp);
-                for (int i=0; i < arr.length(); i++) {
+                for (int i = 0; i < arr.length(); i++) {
                     result.add(convertContact(arr.getJSONObject(i)));
-                    Log.i(TAG,"Imprimindo o array: " + String.valueOf(arr.getJSONObject(i)));
+                    Log.i(TAG, "Imprimindo o array: " + String.valueOf(arr.getJSONObject(i)));
                 }
                 return result;
-            }
-            catch(Throwable t) {
+            } catch (Throwable t) {
                 t.printStackTrace();
             }
             return null;
         }
-    }
-
-    private ListViewItem convertContact(JSONObject obj) {
-        String name = null;
-        String description = null;
-        try {
-
-            Integer IdContato = obj.getInt("id_vaga");
-            name = obj.getString("Desc_vaga");
-            description = obj.getString("sumario_vaga");
-
-
-            // Adicionando os dados do objeto na memoria
-            newContact = new ListviewContactItem(IdContato,name,description);
-
-
-            Log.i(TAG, "Valores impressos: " + IdContato + name + " - " + description);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        //getString("title");
-       /* String surname = obj.getString("surname");
-        String email = obj.getString("email");
-        String phoneNum = obj.getString("phoneNum");*/
-        return new ListViewItem(resources.getDrawable(R.drawable.ic_job_img), name, description);
     }
 }
